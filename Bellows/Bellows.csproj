@@ -4,6 +4,14 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Bellows</Title>
+        <Authors>Smithing Systems Sp. z o.o.</Authors>
+        <Description>A lightweight, powerful mediator library for .NET</Description>
+        <PackageProjectUrl>https://github.com/Smithing-Systems/Bellows</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Smithing-Systems/Bellows?tab=MIT-1-ov-file#readme</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Smithing-Systems/Bellows</RepositoryUrl>
+        <Version>9.0.0-alpha</Version>
+        <PackageTags>bellows, mediator</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

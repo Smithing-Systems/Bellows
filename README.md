@@ -2,8 +2,10 @@
 
 A mediator library for .NET that decouples senders from receivers using request/response and pub/sub patterns.
 
-[![.NET 9.0+](https://img.shields.io/badge/.NET-9.0+-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
-[![License](https://img.shields.io/badge/license-MIT-blue)](#)
+[![9.0+](https://img.shields.io/badge/.NET-9.0+-512BD4)](https://dotnet.microsoft.com/)
+[![NuGet Version](https://img.shields.io/nuget/v/Bellows)](https://www.nuget.org/packages/Bellows)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Smithing-Systems/Bellows/blob/main/LICENCE.md)
+
 
 ## Installation
 

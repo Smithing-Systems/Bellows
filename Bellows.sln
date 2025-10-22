@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellows", "Bellows\Bellows.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellows.Tests", "Bellows.Tests\Bellows.Tests.csproj", "{EDD81FBB-7902-4226-BEAF-054B76852686}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{61BE2F0E-178D-468B-BDE8-2A436B1F7F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreSample", "Samples\AspNetCoreSample\AspNetCoreSample.csproj", "{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreSample.PipelineBehavior", "Samples\AspNetCoreSample.PipelineBehavior\AspNetCoreSample.PipelineBehavior.csproj", "{F235BB22-8DE8-44C8-9896-B2545495D0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{EDD81FBB-7902-4226-BEAF-054B76852686}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD81FBB-7902-4226-BEAF-054B76852686}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD81FBB-7902-4226-BEAF-054B76852686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F235BB22-8DE8-44C8-9896-B2545495D0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F235BB22-8DE8-44C8-9896-B2545495D0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F235BB22-8DE8-44C8-9896-B2545495D0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F235BB22-8DE8-44C8-9896-B2545495D0D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F732B95B-4D8F-48D3-B2D2-569E07AD2A1F} = {61BE2F0E-178D-468B-BDE8-2A436B1F7F90}
+		{F235BB22-8DE8-44C8-9896-B2545495D0D6} = {61BE2F0E-178D-468B-BDE8-2A436B1F7F90}
 	EndGlobalSection
 EndGlobal

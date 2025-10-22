@@ -1,5 +1,3 @@
-<div align="center">
-
 # Bellows
 
 ### A lightweight, powerful mediator library for .NET
@@ -11,8 +9,6 @@ Clean architecture made simple with request/response patterns, pub/sub notificat
 [![License](https://img.shields.io/badge/license-MIT-blue)](#)
 
 [Quick Start](#quick-start) • [Features](#features) • [Documentation](#api-reference) • [Examples](#configuration-options)
-
-</div>
 
 ---
 
@@ -562,23 +558,13 @@ Bellows/
 
 ## Design Principles
 
-🎯 **Simple** - Minimal API surface, easy to understand
-⚡ **Fast** - Reflection caching for optimal performance
-🪶 **Lightweight** - Single dependency on DI abstractions
-🧪 **Testable** - Easy to mock and unit test
-🔧 **Flexible** - Extensive configuration options
-✅ **Production-Ready** - Battle-tested patterns with comprehensive error handling
+- 🎯 **Simple** - Minimal API surface, easy to understand
+- ⚡ **Fast** - Reflection caching for optimal performance
+- 🪶 **Lightweight** - Single dependency on DI abstractions
+- 🧪 **Testable** - Easy to mock and unit test
+- 🔧 **Flexible** - Extensive configuration options
+- ✅ **Production-Ready** - Battle-tested patterns with comprehensive error handling
 
 ---
-
-## License
-
-MIT
-
----
-
-<div align="center">
 
 **Made with ❤️ by [Smithing Systems](https://smithingsystems.com)**
-
-</div>

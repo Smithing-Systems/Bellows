@@ -78,6 +78,22 @@ public static class ServiceCollectionExtensions
         if (behaviorType == null)
             throw new ArgumentNullException(nameof(behaviorType));
 
+        // Handle open generic types (e.g., LoggingBehavior<,>)
+        if (behaviorType.IsGenericTypeDefinition)
+        {
+            // Verify the open generic type implements IPipelineBehavior<,>
+            var implementsInterface = behaviorType.GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IPipelineBehavior<,>));
+
+            if (!implementsInterface)
+                throw new ArgumentException($"Type {behaviorType.Name} does not implement IPipelineBehavior<,>", nameof(behaviorType));
+
+            // Register the open generic type
+            services.AddTransient(typeof(IPipelineBehavior<,>), behaviorType);
+            return services;
+        }
+
+        // Handle closed generic types (e.g., LoggingBehavior<MyRequest, MyResponse>)
         var interfaces = behaviorType.GetInterfaces()
             .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IPipelineBehavior<,>))
             .ToList();

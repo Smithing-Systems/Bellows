@@ -10,9 +10,10 @@
         <PackageProjectUrl>https://github.com/Smithing-Systems/Bellows</PackageProjectUrl>
         <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
         <RepositoryUrl>https://github.com/Smithing-Systems/Bellows</RepositoryUrl>
-        <Version>9.0.0-alpha</Version>
+        <Version>9.0.0-beta</Version>
         <PackageTags>bellows, mediator</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,6 +23,7 @@
     <ItemGroup>
       <None Include="..\README.md" Pack="true" PackagePath="\"/>
       <None Include="..\LICENCE.md" Pack="true" PackagePath="\"/>
+      <None Include="icon.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

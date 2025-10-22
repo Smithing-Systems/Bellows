@@ -173,7 +173,20 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 }
 ```
 
-Behaviors are automatically registered when included in the assemblies passed to `AddBellows()`.
+### Registering Behaviors
+
+Register pipeline behaviors explicitly using `AddPipelineBehavior`:
+
+```csharp
+// Register as open generic (applies to all requests)
+builder.Services.AddBellows(typeof(Program).Assembly);
+builder.Services.AddPipelineBehavior(typeof(LoggingBehavior<,>));
+builder.Services.AddPipelineBehavior(typeof(ValidationBehavior<,>));
+
+// Order matters - behaviors execute in registration order
+```
+
+Alternatively, closed generic behaviors are auto-registered when included in assemblies passed to `AddBellows()`.
 
 ### Validation Example
 

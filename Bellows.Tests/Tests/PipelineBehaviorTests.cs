@@ -270,4 +270,52 @@ public class PipelineBehaviorTests
         // Assert - should work even without explicit AddPipelineBehavior
         Assert.NotNull(response);
     }
+
+    [Fact]
+    public async Task AddPipelineBehavior_WithOpenGenericType_RegistersForAllRequestTypes()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+        services.AddBellows(typeof(PipelineBehaviorTests).Assembly);
+
+        // Register open generic behavior
+        services.AddPipelineBehavior(typeof(LoggingBehavior<,>));
+
+        var provider = services.BuildServiceProvider();
+        var mediator = provider.GetRequiredService<IMediator>();
+
+        // Act - Test with GetUserQuery
+        var userQuery = new GetUserQuery(1);
+        var userResponse = await mediator.Send(userQuery);
+
+        // Assert - GetUserQuery should have logging
+        Assert.NotNull(userResponse);
+        var userLogs = LoggingBehavior<GetUserQuery, UserResponse>.Logs;
+        Assert.Equal(2, userLogs.Count);
+        Assert.Equal("[LoggingBehavior] Before: GetUserQuery", userLogs[0]);
+        Assert.Equal("[LoggingBehavior] After: GetUserQuery", userLogs[1]);
+
+        // Act - Test with CalculateCommand
+        LoggingBehavior<CalculateCommand, int>.Logs.Clear();
+        var calcCommand = new CalculateCommand(5, 3);
+        var calcResult = await mediator.Send(calcCommand);
+
+        // Assert - CalculateCommand should also have logging (proving open generic works)
+        Assert.Equal(8, calcResult);
+        var calcLogs = LoggingBehavior<CalculateCommand, int>.Logs;
+        Assert.Equal(2, calcLogs.Count);
+        Assert.Equal("[LoggingBehavior] Before: CalculateCommand", calcLogs[0]);
+        Assert.Equal("[LoggingBehavior] After: CalculateCommand", calcLogs[1]);
+    }
+
+    [Fact]
+    public void AddPipelineBehavior_WithOpenGenericNonBehaviorType_ThrowsException()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            services.AddPipelineBehavior(typeof(List<>)));
+    }
 }

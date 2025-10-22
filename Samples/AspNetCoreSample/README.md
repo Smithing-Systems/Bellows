@@ -9,7 +9,7 @@ A practical example demonstrating the **Bellows** mediator library in an ASP.NET
 The Bellows package is already included in this project:
 
 ```xml
-<PackageReference Include="Bellows" Version="9.0.0-alpha" />
+<PackageReference Include="Bellows" Version="9.0.0" />
 ```
 
 ### Running the Sample

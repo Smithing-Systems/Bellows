@@ -225,17 +225,32 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
 ### Basic Options
 
+Configure notification execution and exception handling:
+
 ```csharp
 builder.Services.AddBellows(options =>
 {
-    // Run notification handlers in parallel (default) or sequential
+    // Execution Strategy: How handlers are executed
+    // Parallel (default): All handlers run concurrently for better performance
+    // Sequential: Handlers run one at a time in registration order
     options.NotificationPublishStrategy = NotificationPublishStrategy.Parallel;
 
-    // Continue running handlers if one throws (default)
+    // Exception Strategy: How exceptions are handled
+    // ContinueOnException (default): All handlers run, first exception rethrown
+    // StopOnFirstException: Stop immediately on first exception
+    // AggregateExceptions: Collect all exceptions into AggregateException
+    // SuppressExceptions: Silently suppress all exceptions (use with caution)
     options.NotificationExceptionHandling = NotificationExceptionHandlingStrategy.ContinueOnException;
 
 }, typeof(Program).Assembly);
 ```
+
+**Choosing the Right Configuration:**
+
+- **Parallel + ContinueOnException** (default): Best for performance when handlers are independent and you want all to execute despite failures.
+- **Sequential + ContinueOnException**: Use when handlers have ordering dependencies or you need deterministic exception handling.
+- **Sequential + StopOnFirstException**: Use when handler order matters and you want to stop immediately on any failure.
+- **Parallel + AggregateExceptions**: Use when you need to know about all failures that occurred.
 
 ### Available Options
 
@@ -249,10 +264,69 @@ builder.Services.AddBellows(options =>
 
 ### Exception Handling Strategies
 
-- `ContinueOnException` - Run all handlers, throw first exception at the end
-- `StopOnFirstException` - Stop on first exception
-- `AggregateExceptions` - Collect all exceptions into `AggregateException`
-- `SuppressExceptions` - Swallow exceptions (use with caution)
+Exception handling behavior varies based on both the **exception handling strategy** and the **execution strategy** (parallel vs sequential):
+
+| Strategy | Parallel Execution | Sequential Execution | Recommendation |
+|----------|-------------------|---------------------|----------------|
+| `ContinueOnException` (default) | All handlers run concurrently. If any fail, the first exception thrown (by timing) is rethrown after all complete. | Handlers run one at a time. If a handler fails, subsequent handlers still execute. The first exception encountered is rethrown after all complete. | ✅ **Recommended** - Good balance between resilience and error visibility |
+| `StopOnFirstException` | All handlers start concurrently. The first exception thrown stops further execution and is immediately rethrown. | Handlers run one at a time. The first exception immediately stops execution and is rethrown. Remaining handlers don't execute. | ⚠️ **Use with caution** - May leave system in inconsistent state by skipping handlers |
+| `AggregateExceptions` | All handlers run concurrently. All exceptions are collected and thrown together as `AggregateException` after all complete. | Handlers run one at a time. All exceptions are collected and thrown together as `AggregateException` after all complete. | ✅ **Recommended** - Best for comprehensive error reporting and diagnostics |
+| `SuppressExceptions` | All handlers run concurrently. All exceptions are silently suppressed. | Handlers run one at a time. All exceptions are silently suppressed. | ❌ **Not recommended** - Hides errors and makes debugging difficult |
+
+**Key Differences:**
+
+- **Parallel + ContinueOnException**: The "first" exception is non-deterministic since handlers run concurrently. The exception thrown depends on which handler fails first by timing.
+- **Sequential + ContinueOnException**: The "first" exception is deterministic - it's the exception from the first handler in registration order that throws.
+- **StopOnFirstException with Parallel**: Cannot guarantee *which* handler's exception is thrown due to concurrent execution, only that execution stops as soon as one fails.
+- **Sequential Execution**: Provides deterministic, predictable ordering for both success and failure cases.
+
+**Example:**
+
+```csharp
+public record OrderCreated(int OrderId) : INotification;
+
+public class EmailHandler : INotificationHandler<OrderCreated>
+{
+    public async Task Handle(OrderCreated notification, CancellationToken ct)
+    {
+        await Task.Delay(50);
+        throw new InvalidOperationException("Email service down");
+    }
+}
+
+public class LogHandler : INotificationHandler<OrderCreated>
+{
+    public async Task Handle(OrderCreated notification, CancellationToken ct)
+    {
+        await Task.Delay(10);
+        throw new InvalidOperationException("Logging failed");
+    }
+}
+
+// Parallel + ContinueOnException (default):
+// Both handlers run concurrently. LogHandler likely throws first due to shorter delay.
+// Result: "Logging failed" exception thrown (non-deterministic)
+
+// Sequential + ContinueOnException:
+// EmailHandler runs first (registration order), then LogHandler.
+// Result: "Email service down" exception thrown (deterministic)
+
+// Parallel + StopOnFirstException:
+// Both start. First failure stops execution immediately.
+// Result: Either exception could be thrown (race condition)
+
+// Sequential + StopOnFirstException:
+// EmailHandler runs first and throws. LogHandler never executes.
+// Result: "Email service down" exception thrown
+
+// Parallel + AggregateExceptions:
+// Both run and both exceptions are collected.
+// Result: AggregateException containing both exceptions
+
+// Sequential + AggregateExceptions:
+// Both run sequentially and both exceptions are collected.
+// Result: AggregateException containing both exceptions (in registration order)
+```
 
 ## API Reference
 

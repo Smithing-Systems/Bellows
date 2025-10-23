@@ -4,8 +4,8 @@ A mediator library for .NET that decouples senders from receivers using request/
 
 [![9.0+](https://img.shields.io/badge/.NET-9.0+-512BD4)](https://dotnet.microsoft.com/)
 [![NuGet Version](https://img.shields.io/nuget/v/Bellows)](https://www.nuget.org/packages/Bellows)
-[![Build](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/build.yml)](https://github.com/Smithing-Systems/Bellows/actions/workflows/build.yml)
-[![Tests](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/test.yml)](https://github.com/Smithing-Systems/Bellows/actions/workflows/test.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/build.yml?label=Build)](https://github.com/Smithing-Systems/Bellows/actions/workflows/build.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/test.yml?label=Tests)](https://github.com/Smithing-Systems/Bellows/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Smithing-Systems/Bellows/blob/main/LICENCE.md)
 
 

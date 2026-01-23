@@ -2,7 +2,7 @@
 
 A mediator library for .NET that decouples senders from receivers using request/response and pub/sub patterns.
 
-[![9.0+](https://img.shields.io/badge/.NET-9.0+-512BD4)](https://dotnet.microsoft.com/)
+[![10.0+](https://img.shields.io/badge/.NET-10.0+-512BD4)](https://dotnet.microsoft.com/)
 [![NuGet Version](https://img.shields.io/nuget/v/Bellows)](https://www.nuget.org/packages/Bellows)
 [![Build](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/build.yml?label=Build)](https://github.com/Smithing-Systems/Bellows/actions/workflows/build.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/Smithing-Systems/Bellows/test.yml?label=Tests)](https://github.com/Smithing-Systems/Bellows/actions/workflows/test.yml)
@@ -15,7 +15,7 @@ A mediator library for .NET that decouples senders from receivers using request/
 dotnet add package Bellows
 ```
 
-**Requirements:** .NET 9.0 or higher
+**Requirements:** .NET 10.0 or higher
 
 ## Getting Started
 
